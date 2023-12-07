@@ -1,6 +1,6 @@
 use crate::get_input;
 
-pub fn solve(part1: bool) -> u32 {
+pub fn solve() -> (u32, u32) {
     let mut input = get_input!("06");
 
     let time_str = input.next().unwrap().unwrap();
@@ -27,9 +27,6 @@ pub fn solve(part1: bool) -> u32 {
 
         mul *= x_max - x_min;
     }
-    if part1 {
-        return mul;
-    }
 
     let time = time_str
         .split(":")
@@ -49,5 +46,5 @@ pub fn solve(part1: bool) -> u32 {
     let x_min = (time - ((desc as f64).sqrt() + 1.0) as u64) / 2;
     let x_max = (time + (desc as f64).sqrt() as u64) / 2;
 
-    return (x_max - x_min) as u32;
+    return (mul, (x_max - x_min) as u32);
 }

@@ -1,12 +1,11 @@
 use crate::get_input;
 
-pub fn solve(part1: bool) -> u32 {
+pub fn solve() -> (u32, u32) {
     const INPUT_SIZE: usize = 140 + 1;
     const PERIOD: u8 = 10;
     const SYMBOL: u8 = 11;
     let input = get_input!("03");
-    let mut sum1 = 0;
-    let mut sum2 = 0;
+    let mut sums = (0, 0);
     let mut parts: [[u8; INPUT_SIZE + 1]; INPUT_SIZE + 1] = [[0; INPUT_SIZE + 1]; INPUT_SIZE + 1];
     let mut gears: [[(u8, u32); INPUT_SIZE + 1]; INPUT_SIZE + 1] = [[(0, 1); INPUT_SIZE + 1]; INPUT_SIZE + 1];
 
@@ -97,7 +96,7 @@ pub fn solve(part1: bool) -> u32 {
             }
 
             if found {
-                sum1 += num;
+                sums.0 += num;
             }
 
             for i in 0..gears_adj.len() {
@@ -112,17 +111,13 @@ pub fn solve(part1: bool) -> u32 {
         }
     }
 
-    if part1 {
-        return sum1;
-    }
-
     for y in 1..INPUT_SIZE {
         for x in 1..INPUT_SIZE {
             if gears[y][x].0 == 3 {
-                sum2 += gears[y][x].1;
+                sums.1 += gears[y][x].1;
             }
         }
     }
 
-    return sum2;
+    return sums;
 }

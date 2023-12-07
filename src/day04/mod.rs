@@ -1,6 +1,6 @@
 use crate::get_input;
 
-pub fn solve(part1: bool) -> u32 {
+pub fn solve() -> (u32, u32) {
     let input = get_input!("04");
 
     let mut sum = 0;
@@ -36,14 +36,10 @@ pub fn solve(part1: bool) -> u32 {
         card_num += 1;
     }
 
-    if part1 {
-        return sum;
-    }
-
     let mut total = 0;
     for card in scratch_cards {
         total += card;
     }
 
-    return (total - 1) as u32;
+    return (sum, (total - 1) as u32);
 }

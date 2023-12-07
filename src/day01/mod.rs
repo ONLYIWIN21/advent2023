@@ -1,8 +1,8 @@
 use crate::get_input;
 
-pub fn solve(part1: bool) -> u32 {
+pub fn solve() -> (u32, u32) {
     let input = get_input!("01");
-    let mut sum = 0;
+    let mut sums = (0, 0);
     let numbers = [
         (0, "zero"),
         (1, "one"),
@@ -17,40 +17,47 @@ pub fn solve(part1: bool) -> u32 {
     ];
     for line in input {
         if let Ok(line) = line {
-            let mut first = true;
-            let mut last = 0;
+            let mut firsts = (true, true);
+            let mut lasts = (0, 0);
             for (i, c) in line.char_indices() {
                 match c {
                     '0'..='9' => {
-                        if first {
-                            sum += to_int(c) * 10;
-                            last = to_int(c);
-                            first = false;
+                        if firsts.0 {
+                            sums.0 += to_int(c) * 10;
+                            lasts.0 = to_int(c);
+                            firsts.0 = false;
                         } else {
-                            last = to_int(c);
+                            lasts.0 = to_int(c);
+                        }
+
+                        if firsts.1 {
+                            sums.1 += to_int(c) * 10;
+                            lasts.1 = to_int(c);
+                            firsts.1 = false;
+                        } else {
+                            lasts.1 = to_int(c);
                         }
                     }
                     _ => (),
                 }
-                if part1 {
-                    continue;
-                }
+
                 for (n, s) in numbers {
                     if s.len() + i <= line.len() && &line[i..i + s.len()] == s {
-                        if first {
-                            sum += n * 10;
-                            last = n;
-                            first = false;
+                        if firsts.1 {
+                            sums.1 += n * 10;
+                            lasts.1 = n;
+                            firsts.1 = false;
                         } else {
-                            last = n;
+                            lasts.1 = n;
                         }
                     }
                 }
             }
-            sum += last;
+            sums.0 += lasts.0;
+            sums.1 += lasts.1;
         }
     }
-    return sum;
+    return sums;
 }
 
 fn to_int(c: char) -> u32 {

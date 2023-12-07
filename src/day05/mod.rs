@@ -1,6 +1,6 @@
 use crate::get_input;
 
-pub fn solve(part1: bool) -> u32 {
+pub fn solve() -> (u32, u32) {
     let mut input = get_input!("05");
 
     let mut new_seeds = input
@@ -52,9 +52,6 @@ pub fn solve(part1: bool) -> u32 {
         }
     }
 
-    if part1 {
-        return *new_seeds.iter().min().unwrap() as u32;
-    }
 
     let mut min = 99999999999;
     for (start, end) in old_range {
@@ -95,5 +92,5 @@ pub fn solve(part1: bool) -> u32 {
         }
     }
 
-    return min as u32;
+    return (*new_seeds.iter().min().unwrap() as u32, min as u32);
 }

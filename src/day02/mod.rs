@@ -1,10 +1,9 @@
 use crate::get_input;
 
-pub fn solve(part1: bool) -> i32 {
+pub fn solve() -> (u32, u32) {
     let input = get_input!("02");
     let colors = [("red", 12), ("green", 13), ("blue", 14)];
-    let mut sum1 = 0;
-    let mut sum2 = 0;
+    let mut sums = (0, 0);
     let mut i = 1;
     for line in input {
         if let Ok(line) = line {
@@ -13,7 +12,7 @@ pub fn solve(part1: bool) -> i32 {
             for round in line.split(": ").nth(1).unwrap().split("; ") {
                 for pull in round.split(", ") {
                     let mut pull = pull.split(" ");
-                    let num = pull.next().unwrap().parse::<i32>().unwrap();
+                    let num = pull.next().unwrap().parse::<u32>().unwrap();
                     let color = pull.next().unwrap();
                     let mut j = 0;
                     for (name, max) in colors.iter() {
@@ -28,14 +27,12 @@ pub fn solve(part1: bool) -> i32 {
                 }
             }
             if valid {
-                sum1 += i;
+                sums.0 += i;
             }
-            sum2 += maxes[0] * maxes[1] * maxes[2];
+            sums.1 += maxes[0] * maxes[1] * maxes[2];
         }
         i += 1;
     }
-    if part1 {
-        return sum1;
-    }
-    return sum2;
+
+    return sums;
 }

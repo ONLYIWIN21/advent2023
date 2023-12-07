@@ -32,12 +32,11 @@ macro_rules! solve {
         {
             use std::time::Instant;
             let now = Instant::now();
-            let part1 = $day::solve(true);
-            let part2 = $day::solve(false);
+            let solution = $day::solve();
             let elapsed = now.elapsed();
             println!("{}: {}ms", stringify!($day), elapsed.as_millis());
-            println!("  Part 1: {}", part1);
-            println!("  Part 2: {}", part2);
+            println!("  Part 1: {}", solution.0);
+            println!("  Part 2: {}", solution.1);
         }
     };
 }
