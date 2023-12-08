@@ -4,6 +4,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 
 fn main() {
     solve!(day01);
@@ -12,6 +13,7 @@ fn main() {
     solve!(day04);
     solve!(day05);
     solve!(day06);
+    solve!(day07);
 }
 
 #[macro_export]
